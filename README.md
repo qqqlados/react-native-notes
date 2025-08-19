@@ -1,50 +1,99 @@
-# Welcome to your Expo app 👋
+# Notes App
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+A React Native application for creating and managing notes with internationalization support.
 
-## Get started
+## Getting Started
 
-1. Install dependencies
+### Prerequisites
 
-   ```bash
-   npm install
-   ```
+- Node.js (v16 or higher)
+- Expo CLI
+- Android Studio (for Android development)
+- Xcode (for iOS development, macOS only)
 
-2. Start the app
+### Installation
 
-   ```bash
-   npx expo start
-   ```
-
-In the output, you'll find options to open the app in a
-
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
-
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
-
-## Get a fresh project
-
-When you're ready, run:
+1. Clone the repository
+2. Install dependencies:
 
 ```bash
-npm run reset-project
+npm install
 ```
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+### Running the App
 
-## Learn more
+**Important**: Use tunnel mode to avoid network issues:
 
-To learn more about developing your project with Expo, look at the following resources:
+```bash
+npx expo start --tunnel
+```
 
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
+The regular `npm run start` command may not work due to network configuration issues.
 
-## Join the community
+### Backend Configuration
 
-Join our community of developers creating universal apps.
+The app uses a backend API for note management. The backend URL is configured in `utils/axios.ts` with the `baseUrl` pointing to the deployed backend service.
 
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+Backend repository: [GitHub Link](https://github.com/qqqlados/notes-server)
+
+## App Structure
+
+### Welcome Screen (`/`)
+
+- Displays a welcome message with a motivational quote
+- Language switcher (EN/FR/IT) in the top-right corner
+- "Start" button to begin using the app
+
+### My Notes Tab (`/(tabs)/my-notes`)
+
+- Lists all created notes
+- Shows empty state when no notes exist
+- Each note displays title and creation date
+- Tap on a note to view details
+
+### Create Note Tab (`/(tabs)/create-note`)
+
+- Form to create new notes
+- Title and description fields with validation
+- "Create" button (disabled until both fields are filled)
+- Simulated 2-second loading delay for better UX
+
+### Note Details (`/my-notes/[id]`)
+
+- Full note view with title, text, and creation date
+- Edit button (pencil icon) to modify the note
+- Delete button (trash icon) with confirmation modal
+- Back navigation to notes list
+
+### Features
+
+- **Internationalization**: Support for English, French, and Italian
+- **Real-time Updates**: Notes sync with backend API
+- **Form Validation**: Prevents creating empty notes
+- **Responsive Design**: Works on both mobile and web
+- **Dark/Light Theme**: Automatic theme switching
+
+## Testing
+
+### E2E Testing with Detox
+
+```bash
+# Build and run tests
+detox build --configuration android.emu.debug
+detox test --configuration android.emu.debug
+```
+
+```bash
+# Start web version
+npm run web
+
+## Technologies Used
+
+- **React Native** with Expo
+- **Expo Router** for navigation
+- **Zustand** for state management
+- **i18next** for internationalization
+- **Axios** for API communication
+- **Detox** for e2e testing
+- **Cypress** for web testing
+```
